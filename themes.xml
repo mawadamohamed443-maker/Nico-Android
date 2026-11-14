@@ -1,0 +1,6 @@
+<resources>
+    <style name="Theme.Nico" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">#070D1A</item>
+        <item name="android:statusBarColor">#070D1A</item>
+    </style>
+</resources>

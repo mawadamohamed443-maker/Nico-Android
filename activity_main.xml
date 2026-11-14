@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:layoutDirection="rtl" android:padding="12dp">
+    <TextView android:id="@+id/status" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="نيكو" android:textColor="#2EE6D6" android:textSize="22sp" android:gravity="center"/>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+        <Button android:id="@+id/btnAcc" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="تفعيل التحكم الكامل" android:textSize="12sp"/>
+        <Button android:id="@+id/btnPerm" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="الأذونات" android:textSize="12sp"/>
+    </LinearLayout>
+    <ScrollView android:id="@+id/scroll" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+        <TextView android:id="@+id/log" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:textColor="#E8F1FF" android:textSize="17sp" android:lineSpacingExtra="6dp" android:padding="6dp"/>
+    </ScrollView>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+        <Button android:id="@+id/btnMic" android:layout_width="64dp" android:layout_height="64dp" android:text="🎤" android:textSize="22sp"/>
+        <EditText android:id="@+id/input" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+            android:hint="اكتبي أمر..." android:textColor="#FFFFFF" android:textColorHint="#8899BB" android:imeOptions="actionSend" android:inputType="text"/>
+        <Button android:id="@+id/btnSend" android:layout_width="64dp" android:layout_height="64dp" android:text="➤"/>
+    </LinearLayout>
+</LinearLayout>
