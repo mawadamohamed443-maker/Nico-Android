@@ -21,6 +21,8 @@ jobs:
           java-version: '17'
 
       - name: Setup Android SDK
+        with: 
+              Accept_sdk-licenses: true 
         uses: android-actions/setup-android@v3
 
       - name: Setup Gradle
