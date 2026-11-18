@@ -17,10 +17,19 @@ jobs:
       - name: Accept SDK licenses
         shell: bash
         run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
+      - name: Prepare project
+        shell: bash
+        run: |
+          P="$RUNNER_TEMP/proj"; mkdir -p "$P"
+          ZIP=$(ls -t *.zip 2>/dev/null | head -1 || true)
+          if [ -n "$ZIP" ]; then unzip -oq "$ZIP" -d "$P"; else cp -r . "$P"; fi
+          S=$(find "$P" -name 'settings.gradle*' | awk '{print length, $0}' | sort -n | head -1 | cut -d' ' -f2-)
+          echo "ROOT=$(dirname "$S")" >> "$GITHUB_ENV"
+          { echo '## Project files'; echo '```'; (cd "$(dirname "$S")" && find . -maxdepth 3 -not -path './.git*' | sort | head -60); echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          test -f "$(dirname "$S")/app/build.gradle.kts" || { echo "::error::app/build.gradle.kts is missing - upload the zip to the repo root"; exit 1; }
       - name: Build
         shell: bash
         run: |
-          ROOT=$(dirname "$(find . -name 'settings.gradle*' | head -1)")
           cd "$ROOT"
           gradle assembleDebug --stacktrace 2>&1 | tee "$GITHUB_WORKSPACE/build.log"
       - name: Show errors
@@ -32,7 +41,7 @@ jobs:
         if: success()
         with:
           name: Nico-APK
-          path: '**/build/outputs/apk/debug/*.apk'
+          path: ${{ runner.temp }}/proj/**/build/outputs/apk/debug/*.apk
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
